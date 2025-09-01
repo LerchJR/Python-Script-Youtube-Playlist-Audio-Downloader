@@ -17,7 +17,6 @@ def select_cookies_file():
         lbl_cookies.config(text=f"Cookies: {os.path.basename(cookies_file_path)}")
 
 def colorize_line(line):
-    # Define patterns for different message types
     if re.search(r'\[download\] Destination', line):
         return 'green'
     elif re.search(r'has already been downloaded', line):
@@ -33,6 +32,10 @@ def download_playlist_thread(url, output_dir):
             "yt-dlp",
             "--cookies", cookies_file_path,
             "-x", "--audio-format", "mp3", "--audio-quality", "0",
+            "--embed-metadata",
+            "--embed-thumbnail",
+            "--add-metadata",
+            "--parse-metadata", "playlist_title:%(album)s",
             "-o", os.path.join(output_dir, "%(title)s.%(ext)s"),
             url
         ]
@@ -88,7 +91,6 @@ tk.Label(root, text="Download Output:").pack(pady=5)
 txt_output = scrolledtext.ScrolledText(root, width=80, height=20)
 txt_output.pack(pady=5)
 
-# Define text tags for colors
 txt_output.tag_config('green', foreground='green')
 txt_output.tag_config('orange', foreground='orange')
 txt_output.tag_config('red', foreground='red')
