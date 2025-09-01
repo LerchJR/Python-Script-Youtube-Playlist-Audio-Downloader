@@ -32,6 +32,7 @@ def download_playlist_thread(url, output_dir):
             "yt-dlp",
             "--cookies", cookies_file_path,
             "-x", "--audio-format", "mp3", "--audio-quality", "0",
+            "--sleep-interval", "25",  # wait 25 seconds between downloads, can change if needed
             "--embed-metadata",
             "--embed-thumbnail",
             "--add-metadata",
@@ -97,3 +98,4 @@ txt_output.tag_config('red', foreground='red')
 txt_output.tag_config('black', foreground='black')
 
 root.mainloop()
+
